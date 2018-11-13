@@ -13,6 +13,7 @@ import javax.imageio.ImageIO;
 public class FinalGamePanel{
 	Font titleFont;
 	public static BufferedImage faceImg;
+	public static BufferedImage platImg;
 	int maxX = 1050;
 	int startX = 50;
 	final static int MENU_STATE = 0;
@@ -26,6 +27,7 @@ public class FinalGamePanel{
 	try {
 
         faceImg = ImageIO.read(this.getClass().getResourceAsStream("smile.png"));
+        platImg = ImageIO.read(this.getClass().getResourceAsStream("blue.png"));
 
       
 
