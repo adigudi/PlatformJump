@@ -25,17 +25,15 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 	JFrame window;
 	Timer timer;
 	static int x = 20;
+	static int y = 50;
+	static Graphics g;
 	FinalGamePanel GP;
-	Player p1 = new Player(Player.x, 50, 100, 100);
+	Player p1 = new Player(Player.x, y, 100, 100);
 	Random r = new Random();
 	int rand = r.nextInt(500 - 400) + 400;
 	int rand2 = r.nextInt(500 - 400) + 400;
 	int rand3 = r.nextInt(500 - 400) + 400;
 	int rand4 = r.nextInt(500 - 400) + 400;
-	static int plat1 = 500;
-	static int plat2 = 500;
-	static int plat3 = 500;
-	static int plat4 = 500;
 	static ArrayList<Platform> platforms = new ArrayList<Platform>();
 
 	Level2FinalGame() {
@@ -57,11 +55,13 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 		window.pack();
 		timer = new Timer(1000 / 60, this);
 		//platforms.add(new Platform(200, 600, 200, 50));
-		platforms.add(new Platform(200, 500, 200, 50));
-		platforms.add(new Platform(1600, plat4, 200, 50));
-		platforms.add(new Platform(1250, plat3, 200, 50));
-		platforms.add(new Platform(900, plat2, 200, 50));
-		platforms.add(new Platform(550, plat1, 200, 50));
+		//platforms.add(new Platform(200, 500, 200, 50));
+		platforms.add(new Platform(1400, Platform.plat4, 200, 50));
+		platforms.add(new Platform(1050, Platform.plat3, 200, 50));
+		platforms.add(new Platform(700, Platform.plat2, 200, 50));
+		platforms.add(new Platform(350, Platform.plat1, 200, 50));
+		platforms.add(new Platform(-100, 525, 350, 75));
+		platforms.add(new Platform(1600, 525, 350, 75));
 		//platforms.add(new Platform(1200, 600, 200, 50));
 		timer.start();
 		System.out.println(x);
@@ -135,8 +135,9 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 			System.exit(0);
 		}
 		System.out.println(Player.x);
-		if (Player.x > 1950) {
-			Player.x = 0;
+		if (Player.x >= 1795) {
+			Player.x = 100;
+			Level2FinalGame.y = 50;
 		}
 		
 	}
@@ -151,7 +152,7 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 			p1.right = false;
 		}
 	}
-
+	
 }
 	
 
