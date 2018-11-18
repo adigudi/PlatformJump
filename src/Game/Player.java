@@ -21,7 +21,7 @@ public class Player {
 	private int xVelocity = 5;
 
 	private int gravity = 1;
-	private int yVelocity = 0;
+	private double yVelocity = 0;
 	private int jumpPower = 20;
 
 	private int yLimit = 500;
@@ -61,6 +61,16 @@ public class Player {
 		}
 
 		cBox.setBounds(x, y, width, height);
+		//Player.x = Player.x + 5;
+		System.out.println(Player.x);
+		if (Player.x > 1820) {
+			Player.x = 100;
+			Level2FinalGame.y = 50;
+		}
+		if(Player.y <= 0) {
+			yVelocity = 0.5;
+		}
+	
 	}
 
 	public void draw(Graphics g) {
@@ -94,7 +104,7 @@ public class Player {
 		return height;
 	}
 
-	public int getYVelocity() {
+	public double getYVelocity() {
 		return yVelocity;
 	}
 }

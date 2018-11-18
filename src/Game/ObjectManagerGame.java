@@ -1,3 +1,5 @@
+package Game;
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
@@ -6,7 +8,7 @@ import java.util.ArrayList;
 
 public class ObjectManagerGame {
 
-		ArrayList<Platform> platforms = new ArrayList<Platform>();
+		static ArrayList<Platform> platforms = new ArrayList<Platform>();
 		
 
 		public void paintComponent(Graphics g) {
@@ -37,12 +39,22 @@ public class ObjectManagerGame {
 		}
 
 		private boolean checkCollision() {
-			for (Platform p : platforms) {
-				if (Level2FinalGame.p1.getCBox().intersects(p.getCBox())) {
-					handleCollision(p);
+				if (Level2FinalGame.p1.getCBox().intersects(Level2FinalGame.platform1.getCBox())) {
+					handleCollision(Level2FinalGame.platform1);
 					return true;
 				}
-			}
+				if (Level2FinalGame.p1.getCBox().intersects(Level2FinalGame.platform2.getCBox())) {
+					handleCollision(Level2FinalGame.platform2);
+					return true;
+				}
+				if (Level2FinalGame.p1.getCBox().intersects(Level2FinalGame.platform3.getCBox())) {
+					handleCollision(Level2FinalGame.platform3);
+					return true;
+				}
+				if (Level2FinalGame.p1.getCBox().intersects(Level2FinalGame.platform4.getCBox())) {
+					handleCollision(Level2FinalGame.platform4);
+					return true;
+				}
 
 			Level2FinalGame.p1.setYLimit(500);
 			return false;

@@ -23,17 +23,21 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 	public static final int WIDTH = 1950;
 	public static final int HEIGHT = 600;
 	JFrame window;
-	Timer timer;
+	static Timer timer;
 	static int x = 20;
 	static int y = 50;
 	static Graphics g;
 	FinalGamePanel GP;
-	Player p1 = new Player(Player.x, y, 100, 100);
+	static Player p1 = new Player(Player.x, y, 100, 100);
 	Random r = new Random();
 	int rand = r.nextInt(500 - 400) + 400;
 	int rand2 = r.nextInt(500 - 400) + 400;
 	int rand3 = r.nextInt(500 - 400) + 400;
 	int rand4 = r.nextInt(500 - 400) + 400;
+	static Platform platform1 = new Platform(1400, 550, 200, 50);
+	static Platform platform2 = new Platform(1050, 550, 200, 50);
+	static Platform platform3 = new Platform(700, 550, 200, 50);
+	static Platform platform4 = new Platform(350, 550, 200, 50);
 	static ArrayList<Platform> platforms = new ArrayList<Platform>();
 
 	Level2FinalGame() {
@@ -56,16 +60,14 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 		timer = new Timer(1000 / 60, this);
 		//platforms.add(new Platform(200, 600, 200, 50));
 		//platforms.add(new Platform(200, 500, 200, 50));
-		platforms.add(new Platform(1400, Platform.plat4, 200, 50));
-		platforms.add(new Platform(1050, Platform.plat3, 200, 50));
-		platforms.add(new Platform(700, Platform.plat2, 200, 50));
-		platforms.add(new Platform(350, Platform.plat1, 200, 50));
+		platforms.add(platform1);
+		platforms.add(platform2);
+		platforms.add(platform3);
+		platforms.add(platform4);
 		platforms.add(new Platform(-100, 525, 350, 75));
 		platforms.add(new Platform(1600, 525, 350, 75));
 		//platforms.add(new Platform(1200, 600, 200, 50));
 		timer.start();
-		System.out.println(x);
-
 	}
 	
 
@@ -116,6 +118,7 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 		// TODO Auto-generated method stub
 	}
 
+	
 	@Override
 	public void keyPressed(KeyEvent e) {
 
@@ -134,11 +137,7 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 			timer.stop();
 			System.exit(0);
 		}
-		System.out.println(Player.x);
-		if (Player.x >= 1795) {
-			Player.x = 100;
-			Level2FinalGame.y = 50;
-		}
+		
 		
 	}
 

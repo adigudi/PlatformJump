@@ -27,7 +27,7 @@ public class FinalGamePanel{
 	try {
 
         faceImg = ImageIO.read(this.getClass().getResourceAsStream("smile.png"));
-        platImg = ImageIO.read(this.getClass().getResourceAsStream("blue.png"));
+        //platImg = ImageIO.read(this.getClass().getResourceAsStream("blue.png"));
 
       
 

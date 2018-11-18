@@ -6,13 +6,9 @@ import java.awt.Rectangle;
 
 public class Platform{
 	private int x;
-	private int y;
+	private double y;
 	private int width;
 	private int height;
-	static int plat1 = 475;
-	static int plat2 = 475;
-	static int plat3 = 475;
-	static int plat4 = 475;
 	private Rectangle cBox = new Rectangle();
 	
 	public Platform(int x, int y, int w, int h){
@@ -22,27 +18,34 @@ public class Platform{
 		this.height = h;
 		cBox.setBounds(x, y, width, height);
 	}
-	
+
 	
 	public void update(){
-		cBox.setBounds(x, y, width, height);
-		/*plat1 = plat1 - 2;
-		plat2 = plat2 - 4;
-		plat3 = plat3 - 6;
-		plat4 = plat4 - 8;*/
-		//System.out.println("Moving");
+		cBox.setBounds(x, (int) y, width, height);
+		Level2FinalGame.platform1.y = Level2FinalGame.platform1.y - 1;
+		Level2FinalGame.platform2.y = Level2FinalGame.platform2.y - 0.75;
+		Level2FinalGame.platform3.y = Level2FinalGame.platform3.y - 0.5;
+		Level2FinalGame.platform4.y = Level2FinalGame.platform4.y - 0.25;
+		if(Level2FinalGame.platform1.y <= 0) {
+			Level2FinalGame.platform1.y = 550;
+		}
+		if(Level2FinalGame.platform2.y <= 0) {
+			Level2FinalGame.platform2.y = 550;
+		}
+		if(Level2FinalGame.platform3.y <= 0) {
+			Level2FinalGame.platform3.y = 550;
+		}
+		if(Level2FinalGame.platform4.y <= 0) {
+			Level2FinalGame.platform4.y = 550;
+		}
 	}
 	
 	public void draw(Graphics g){
 		g.setColor(Color.GREEN);
-		g.fillRect(x, y, width, height);
+		g.fillRect(x, (int) y, width, height);
 		g.setColor(Color.BLUE);
 		g.fillRect(0, 525, 350, 75);
 		g.fillRect(1600, 525, 350, 75);
-		plat1 = plat1 - 2;
-		plat2 = plat2 - 4;
-		plat3 = plat3 - 6;
-		plat4 = plat4 - 8;
 		
 	}
 	
@@ -55,6 +58,6 @@ public class Platform{
 	}
 	
 	public int getY(){
-		return y;
+		return (int) y;
 	}
 }
