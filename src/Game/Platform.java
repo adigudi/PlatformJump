@@ -10,6 +10,7 @@ public class Platform{
 	private int width;
 	private int height;
 	private Rectangle cBox = new Rectangle();
+	static double tempo = 1;
 	
 	public Platform(int x, int y, int w, int h){
 		this.x = x;
@@ -22,10 +23,10 @@ public class Platform{
 	
 	public void update(){
 		cBox.setBounds(x, (int) y, width, height);
-		Level2FinalGame.platform1.y = Level2FinalGame.platform1.y - 1;
-		Level2FinalGame.platform2.y = Level2FinalGame.platform2.y - 0.75;
-		Level2FinalGame.platform3.y = Level2FinalGame.platform3.y - 0.5;
-		Level2FinalGame.platform4.y = Level2FinalGame.platform4.y - 0.25;
+		Level2FinalGame.platform1.y = Level2FinalGame.platform1.y - 1*tempo;
+		Level2FinalGame.platform2.y = Level2FinalGame.platform2.y - 0.75*tempo;
+		Level2FinalGame.platform3.y = Level2FinalGame.platform3.y - 0.5*tempo;
+		Level2FinalGame.platform4.y = Level2FinalGame.platform4.y - 0.25*tempo;
 		if(Level2FinalGame.platform1.y <= 0) {
 			Level2FinalGame.platform1.y = 550;
 		}
@@ -38,6 +39,7 @@ public class Platform{
 		if(Level2FinalGame.platform4.y <= 0) {
 			Level2FinalGame.platform4.y = 550;
 		}
+		
 	}
 	
 	public void draw(Graphics g){
