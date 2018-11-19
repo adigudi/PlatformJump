@@ -38,6 +38,8 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 	static Platform platform2 = new Platform(1050, 550, 200, 50);
 	static Platform platform3 = new Platform(700, 550, 200, 50);
 	static Platform platform4 = new Platform(350, 550, 200, 50);
+	static Platform start = new Platform(0, 525, 350, 75);
+	static Platform finish = new Platform(1600, 525, 350, 75);
 	static ArrayList<Platform> platforms = new ArrayList<Platform>();
 
 	Level2FinalGame() {
@@ -58,18 +60,17 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 		window.setVisible(true);
 		window.pack();
 		timer = new Timer(1000 / 60, this);
-		//platforms.add(new Platform(200, 600, 200, 50));
-		//platforms.add(new Platform(200, 500, 200, 50));
+		// platforms.add(new Platform(200, 600, 200, 50));
+		// platforms.add(new Platform(200, 500, 200, 50));
 		platforms.add(platform1);
 		platforms.add(platform2);
 		platforms.add(platform3);
 		platforms.add(platform4);
-		platforms.add(new Platform(-100, 525, 350, 75));
-		platforms.add(new Platform(1600, 525, 350, 75));
-		//platforms.add(new Platform(1200, 600, 200, 50));
+		platforms.add(start);
+		platforms.add(finish);
+		// platforms.add(new Platform(1200, 600, 200, 50));
 		timer.start();
 	}
-	
 
 	public void paintComponent(Graphics g) {
 		p1.draw(g);
@@ -94,11 +95,29 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 	}
 
 	private boolean checkCollision() {
-		for (Platform p : platforms) {
-			if (p1.getCBox().intersects(p.getCBox())) {
-				handleCollision(p);
-				return true;
-			}
+		if (p1.getCBox().intersects(Level2FinalGame.platform1.getCBox())) {
+			handleCollision(platform1);
+			return true;
+		}
+		if (p1.getCBox().intersects(Level2FinalGame.platform2.getCBox())) {
+			handleCollision(platform2);
+			return true;
+		}
+		if (p1.getCBox().intersects(Level2FinalGame.platform3.getCBox())) {
+			handleCollision(platform3);
+			return true;
+		}
+		if (p1.getCBox().intersects(Level2FinalGame.platform4.getCBox())) {
+			handleCollision(platform4);
+			return true;
+		}
+		if (p1.getCBox().intersects(Level2FinalGame.start.getCBox())) {
+			handleCollision(start);
+			return true;
+		}
+		if (p1.getCBox().intersects(Level2FinalGame.finish.getCBox())) {
+			handleCollision(finish);
+			return true;
 		}
 
 		p1.setYLimit(500);
@@ -106,19 +125,19 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 	}
 
 	private void handleCollision(Platform p) {
-		if (p1.getYVelocity() >= 0 && p1.getY() + p1.getHeight() < p.getY() + 25) {
+		if (p1.getYVelocity() >= 0 && p1.getY() + p1.getHeight() < p.getY() + 45) {
 			p1.setYLimit(p.getY() - p1.getHeight());
 		} else {
 			p1.setYLimit(500);
 		}
 	}
 
+	// 25
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
 	}
 
-	
 	@Override
 	public void keyPressed(KeyEvent e) {
 
@@ -137,8 +156,7 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 			timer.stop();
 			System.exit(0);
 		}
-		
-		
+
 	}
 
 	@Override
@@ -151,9 +169,8 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 			p1.right = false;
 		}
 	}
-	
+
 }
-	
 
 /*
  * class Platform{ private int x; private int y; private int width; private int
