@@ -48,6 +48,9 @@ public class Platform{
 		g.setColor(Color.BLUE);
 		g.fillRect(0, 525, 350, 75);
 		g.fillRect(1600, 525, 350, 75);
+		g.setColor(Color.RED);
+		//g.fillRect(350, 550, 1250, 50);
+		g.drawImage(FinalGamePanel.lavaImg, 350, 550, 1250, 50, null);
 		
 	}
 	

@@ -75,7 +75,6 @@ public class Player {
 		//g.setColor(Color.BLUE);
 		//g.fillRect(x, y, width, height);
 		g.drawImage(FinalGamePanel.faceImg, x, y, width, height, null);
-
 	}
 
 	public Rectangle getCBox() {

@@ -3,6 +3,7 @@ package Game;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
@@ -10,9 +11,12 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.geom.Ellipse2D;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -40,8 +44,16 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 	static Platform platform4 = new Platform(350, 550, 200, 50);
 	static Platform start = new Platform(0, 525, 350, 75);
 	static Platform finish = new Platform(1600, 525, 350, 75);
+	static Platform lava = new Platform(350, 550, 1250, 50);
 	static ArrayList<Platform> platforms = new ArrayList<Platform>();
-
+	final static int MENU_STATE = 0;
+	final int GAME_STATE = 1;
+	final int END_STATE = 2;
+	static int currentState = MENU_STATE;
+	Font titleFont;
+	public static BufferedImage faceImg;
+	public static BufferedImage lavaImg;
+	public static BufferedImage backgroundImg;
 	Level2FinalGame() {
 		GP = new FinalGamePanel();
 	}
@@ -50,6 +62,8 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 		Level2FinalGame game = new Level2FinalGame();
 		game.run();
 	}
+
+	
 
 	public void run() {
 		window = new JFrame("Platform Jump");
@@ -68,19 +82,24 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 		platforms.add(platform4);
 		platforms.add(start);
 		platforms.add(finish);
+		platforms.add(lava);
 		// platforms.add(new Platform(1200, 600, 200, 50));
 		timer.start();
+		//g1.drawImage(FinalGamePanel.backgroundImg, 0, 0, 1950, 600, null);
+		
 	}
 
 	public void paintComponent(Graphics g) {
+		g.drawImage(FinalGamePanel.backgroundImg, 0, 0, 1950, 600, null);
 		p1.draw(g);
 		g.setColor(Color.BLUE);
 
 		for (Platform p : platforms) {
 			p.draw(g);
 		}
+		
 	}
-
+	
 	public void actionPerformed(ActionEvent e) {
 		checkCollision();
 
@@ -117,6 +136,11 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 		}
 		if (p1.getCBox().intersects(Level2FinalGame.finish.getCBox())) {
 			handleCollision(finish);
+			return true;
+		}
+		if (p1.getCBox().intersects(Level2FinalGame.lava.getCBox())) {
+			handleCollision(lava);
+			System.out.println("You Die!");
 			return true;
 		}
 
@@ -170,7 +194,75 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 		}
 	}
 
+	void FinalGamePanel() {
+		titleFont = new Font("Helvetica Neue", Font.PLAIN, 48);
+	
+	
+	try {
+
+        faceImg = ImageIO.read(this.getClass().getResourceAsStream("smile.png"));
+        lavaImg = ImageIO.read(this.getClass().getResourceAsStream("lava.png"));
+        backgroundImg = ImageIO.read(this.getClass().getResourceAsStream("background.png"));
+        //platImg = ImageIO.read(this.getClass().getResourceAsStream("blue.png"));
+
+      
+
+} catch (IOException e) {
+
+        // TODO Auto-generated catch block
+
+        e.printStackTrace();
+
 }
+	}
+
+
+	
+
+	void updateMenuState() {
+
+	}
+
+	void updateGameState() {
+		
+	}
+
+	void updateEndState() {
+
+	}
+
+	void drawMenuState(Graphics g) {
+		g.setColor(Color.BLUE);
+		g.setFont(titleFont);
+		g.drawString("Platform Jump", 80, 150);
+	}
+
+	 void drawGameState(Graphics g) {
+		//g.drawImage(FinalGamePanel.faceImg,Player.x, Player.y, Player.width, Player.height, null);
+		//Camera cam = new Camera(Player.x, 0, 1000, 600);
+		//g.drawRect(Level2FinalGame.x - cam.x, 50, Level2FinalGame.WIDTH, Level2FinalGame.HEIGHT);
+		//g.drawRect(Level2FinalGame.x - cam.x, 0, Level2FinalGame.WIDTH, Level2FinalGame.HEIGHT);
+		
+		
+	}
+
+	void drawEndState(Graphics g) {
+
+	}
+	public void paintComponent2(Graphics g) {
+		// TODO Auto-generated method stub
+		if (currentState == MENU_STATE) {
+
+			drawMenuState(g);
+
+		}
+	}
+
+
+}
+
+	
+
 
 /*
  * class Platform{ private int x; private int y; private int width; private int

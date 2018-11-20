@@ -13,7 +13,8 @@ import javax.imageio.ImageIO;
 public class FinalGamePanel{
 	Font titleFont;
 	public static BufferedImage faceImg;
-	public static BufferedImage platImg;
+	public static BufferedImage lavaImg;
+	public static BufferedImage backgroundImg;
 	int maxX = 1050;
 	int startX = 50;
 	final static int MENU_STATE = 0;
@@ -27,6 +28,8 @@ public class FinalGamePanel{
 	try {
 
         faceImg = ImageIO.read(this.getClass().getResourceAsStream("smile.png"));
+        lavaImg = ImageIO.read(this.getClass().getResourceAsStream("lava.png"));
+        backgroundImg = ImageIO.read(this.getClass().getResourceAsStream("background.png"));
         //platImg = ImageIO.read(this.getClass().getResourceAsStream("blue.png"));
 
       
@@ -61,11 +64,12 @@ public class FinalGamePanel{
 		g.drawString("Square Runner", 80, 150);
 	}
 
-	void drawGameState(Graphics g) {
+	 void drawGameState(Graphics g) {
 		//g.drawImage(FinalGamePanel.faceImg,Player.x, Player.y, Player.width, Player.height, null);
 		//Camera cam = new Camera(Player.x, 0, 1000, 600);
 		//g.drawRect(Level2FinalGame.x - cam.x, 50, Level2FinalGame.WIDTH, Level2FinalGame.HEIGHT);
 		//g.drawRect(Level2FinalGame.x - cam.x, 0, Level2FinalGame.WIDTH, Level2FinalGame.HEIGHT);
+		g.drawImage(FinalGamePanel.backgroundImg, 0, 0, 1950, 600, null);
 		
 	}
 
