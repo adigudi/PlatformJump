@@ -39,7 +39,6 @@ public class Platform{
 		if(Level2FinalGame.platform4.y <= 0) {
 			Level2FinalGame.platform4.y = 550;
 		}
-		
 	}
 	
 	public void draw(Graphics g){

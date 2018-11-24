@@ -68,6 +68,9 @@ public class Player {
 			Level2FinalGame.y = 50;
 			Platform.tempo++;
 		}
+		if (Player.y < -50) {
+			yVelocity = 0.5;
+		}
 		System.out.println(Platform.tempo);
 	}
 

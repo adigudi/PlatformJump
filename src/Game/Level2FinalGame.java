@@ -49,11 +49,14 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 	final static int MENU_STATE = 0;
 	final int GAME_STATE = 1;
 	final int END_STATE = 2;
-	static int currentState = MENU_STATE;
+	static int currentState = 0;
 	Font titleFont;
+	Font instructionsFont;
+	Font endFont;
 	public static BufferedImage faceImg;
 	public static BufferedImage lavaImg;
 	public static BufferedImage backgroundImg;
+
 	Level2FinalGame() {
 		GP = new FinalGamePanel();
 	}
@@ -62,8 +65,6 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 		Level2FinalGame game = new Level2FinalGame();
 		game.run();
 	}
-
-	
 
 	public void run() {
 		window = new JFrame("Platform Jump");
@@ -74,6 +75,9 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 		window.setVisible(true);
 		window.pack();
 		timer = new Timer(1000 / 60, this);
+		titleFont = new Font("Helvetica Neue", Font.PLAIN, 96);
+		instructionsFont = new Font("Helvetica Neue", Font.PLAIN, 48);
+		endFont = new Font("Helvetica Neue", Font.PLAIN, 96);
 		// platforms.add(new Platform(200, 600, 200, 50));
 		// platforms.add(new Platform(200, 500, 200, 50));
 		platforms.add(platform1);
@@ -85,21 +89,11 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 		platforms.add(lava);
 		// platforms.add(new Platform(1200, 600, 200, 50));
 		timer.start();
-		//g1.drawImage(FinalGamePanel.backgroundImg, 0, 0, 1950, 600, null);
-		
+		// g1.drawImage(FinalGamePanel.backgroundImg, 0, 0, 1950, 600, null);
+
+
 	}
 
-	public void paintComponent(Graphics g) {
-		g.drawImage(FinalGamePanel.backgroundImg, 0, 0, 1950, 600, null);
-		p1.draw(g);
-		g.setColor(Color.BLUE);
-
-		for (Platform p : platforms) {
-			p.draw(g);
-		}
-		
-	}
-	
 	public void actionPerformed(ActionEvent e) {
 		checkCollision();
 
@@ -108,6 +102,7 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 		for (Platform p : platforms) {
 			p.update();
 		}
+		System.out.println(currentState);
 
 		repaint();
 
@@ -140,7 +135,6 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 		}
 		if (p1.getCBox().intersects(Level2FinalGame.lava.getCBox())) {
 			handleCollision(lava);
-			System.out.println("You Die!");
 			return true;
 		}
 
@@ -180,6 +174,9 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 			timer.stop();
 			System.exit(0);
 		}
+		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+			changeCurrentState();
+		}
 
 	}
 
@@ -195,36 +192,29 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 	}
 
 	void FinalGamePanel() {
-		titleFont = new Font("Helvetica Neue", Font.PLAIN, 48);
-	
-	
-	try {
 
-        faceImg = ImageIO.read(this.getClass().getResourceAsStream("smile.png"));
-        lavaImg = ImageIO.read(this.getClass().getResourceAsStream("lava.png"));
-        backgroundImg = ImageIO.read(this.getClass().getResourceAsStream("background.png"));
-        //platImg = ImageIO.read(this.getClass().getResourceAsStream("blue.png"));
+		try {
 
-      
+			faceImg = ImageIO.read(this.getClass().getResourceAsStream("smile.png"));
+			lavaImg = ImageIO.read(this.getClass().getResourceAsStream("lava.png"));
+			backgroundImg = ImageIO.read(this.getClass().getResourceAsStream("background.png"));
+			// platImg = ImageIO.read(this.getClass().getResourceAsStream("blue.png"));
 
-} catch (IOException e) {
+		} catch (IOException e) {
 
-        // TODO Auto-generated catch block
+			// TODO Auto-generated catch block
 
-        e.printStackTrace();
+			e.printStackTrace();
 
-}
+		}
 	}
-
-
-	
 
 	void updateMenuState() {
 
 	}
 
 	void updateGameState() {
-		
+
 	}
 
 	void updateEndState() {
@@ -234,35 +224,47 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 	void drawMenuState(Graphics g) {
 		g.setColor(Color.BLUE);
 		g.setFont(titleFont);
-		g.drawString("Platform Jump", 80, 150);
+		g.drawString("Platform Jump", 900, 300);
+		g.setFont(instructionsFont);
+		g.drawString("Press ENTER to play", 900, 400);
 	}
 
-	 void drawGameState(Graphics g) {
-		//g.drawImage(FinalGamePanel.faceImg,Player.x, Player.y, Player.width, Player.height, null);
-		//Camera cam = new Camera(Player.x, 0, 1000, 600);
-		//g.drawRect(Level2FinalGame.x - cam.x, 50, Level2FinalGame.WIDTH, Level2FinalGame.HEIGHT);
-		//g.drawRect(Level2FinalGame.x - cam.x, 0, Level2FinalGame.WIDTH, Level2FinalGame.HEIGHT);
-		
-		
+	void drawGameState(Graphics g) {
+		g.drawImage(FinalGamePanel.backgroundImg, 0, 0, 1950, 600, null);
+		p1.draw(g);
+		g.setColor(Color.BLUE);
+
+		for (Platform p : platforms) {
+			p.draw(g);
+		}
+
 	}
 
 	void drawEndState(Graphics g) {
-
+		g.setColor(Color.RED);
+		g.fillRect(0, 0, 1950, 600);
+		g.setFont(endFont);
+		g.drawString("GAME OVER!", 800, 300);
+		
 	}
-	public void paintComponent2(Graphics g) {
+
+	public void paintComponent(Graphics g) {
 		// TODO Auto-generated method stub
+		repaint();
 		if (currentState == MENU_STATE) {
-
 			drawMenuState(g);
-
+		} else if (currentState == GAME_STATE) {
+			drawGameState(g);
+		} else if (currentState == END_STATE) {
+			drawEndState(g);
 		}
 	}
 
+	static void changeCurrentState() {
+		currentState++;
+	}
 
 }
-
-	
-
 
 /*
  * class Platform{ private int x; private int y; private int width; private int

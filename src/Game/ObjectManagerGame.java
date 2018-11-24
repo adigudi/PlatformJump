@@ -89,7 +89,7 @@ public class ObjectManagerGame {
 				Level2FinalGame.timer.stop();
 				System.exit(0);
 			}
-			System.out.println(Player.x);
+			//System.out.println(Player.x);
 			if(Player.x > 890) {
 				Player.x = 0;
 			}
