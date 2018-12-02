@@ -67,6 +67,7 @@ public class Player {
 			Player.x = 100;
 			Level2FinalGame.y = 50;
 			Platform.tempo++;
+			Level2FinalGame.score++;
 		}
 		if (Player.y < -50) {
 			yVelocity = 0.5;

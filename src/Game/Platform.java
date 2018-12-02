@@ -23,10 +23,10 @@ public class Platform{
 	
 	public void update(){
 		cBox.setBounds(x, (int) y, width, height);
-		Level2FinalGame.platform1.y = Level2FinalGame.platform1.y - 1*tempo;
-		Level2FinalGame.platform2.y = Level2FinalGame.platform2.y - 0.75*tempo;
-		Level2FinalGame.platform3.y = Level2FinalGame.platform3.y - 0.5*tempo;
-		Level2FinalGame.platform4.y = Level2FinalGame.platform4.y - 0.25*tempo;
+		Level2FinalGame.platform1.y = Level2FinalGame.platform1.y - 0.5*tempo;
+		Level2FinalGame.platform2.y = Level2FinalGame.platform2.y - 0.475*tempo;
+		Level2FinalGame.platform3.y = Level2FinalGame.platform3.y - 0.25*tempo;
+		Level2FinalGame.platform4.y = Level2FinalGame.platform4.y - 0.125*tempo;
 		if(Level2FinalGame.platform1.y <= 0) {
 			Level2FinalGame.platform1.y = 550;
 		}

@@ -12,6 +12,7 @@ import javax.imageio.ImageIO;
 
 public class FinalGamePanel{
 	Font titleFont;
+	static Font endFont;
 	public static BufferedImage faceImg;
 	public static BufferedImage lavaImg;
 	public static BufferedImage backgroundImg;
@@ -23,6 +24,7 @@ public class FinalGamePanel{
 
 	FinalGamePanel() {
 		titleFont = new Font("Helvetica Neue", Font.PLAIN, 48);
+		endFont = new Font("Helvetica Neue", Font.PLAIN, 48);
 	
 	
 	try {
@@ -61,7 +63,7 @@ public class FinalGamePanel{
 	void drawMenuState(Graphics g) {
 		g.setColor(Color.BLUE);
 		g.setFont(titleFont);
-		g.drawString("Square Runner", 80, 150);
+		g.drawString("Platform Jump", 80, 150);
 	}
 
 	 void drawGameState(Graphics g) {
@@ -73,8 +75,10 @@ public class FinalGamePanel{
 		
 	}
 
-	void drawEndState(Graphics g) {
-
+	static void drawEndState(Graphics g) {
+		g.setColor(Color.RED);
+		g.setFont(endFont);
+		g.drawString("GAME OVER!", 80, 150);
 	}
 	public void paintComponent(Graphics g) {
 		// TODO Auto-generated method stub
