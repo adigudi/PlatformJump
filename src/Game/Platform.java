@@ -16,17 +16,17 @@ public class Platform{
 		this.x = x;
 		this.y = y;
 		this.width = w;
-		this.height = h;
-		cBox.setBounds(x, y, width, height);
+		this.setHeight(h);
+		cBox.setBounds(x, y, width, getHeight());
 	}
 
 	
 	public void update(){
-		cBox.setBounds(x, (int) y, width, height);
-		Level2FinalGame.platform1.y = Level2FinalGame.platform1.y - 0.5*tempo;
-		Level2FinalGame.platform2.y = Level2FinalGame.platform2.y - 0.475*tempo;
-		Level2FinalGame.platform3.y = Level2FinalGame.platform3.y - 0.25*tempo;
-		Level2FinalGame.platform4.y = Level2FinalGame.platform4.y - 0.125*tempo;
+		cBox.setBounds(x, (int) y, width, getHeight());
+		Level2FinalGame.platform1.y = Level2FinalGame.platform1.y - (0.5/2)*tempo;
+		Level2FinalGame.platform2.y = Level2FinalGame.platform2.y - (0.475/2)*tempo;
+		Level2FinalGame.platform3.y = Level2FinalGame.platform3.y - (0.25/2)*tempo;
+		Level2FinalGame.platform4.y = Level2FinalGame.platform4.y - (0.125/2)*tempo;
 		if(Level2FinalGame.platform1.y <= 0) {
 			Level2FinalGame.platform1.y = 550;
 		}
@@ -39,17 +39,18 @@ public class Platform{
 		if(Level2FinalGame.platform4.y <= 0) {
 			Level2FinalGame.platform4.y = 550;
 		}
-	}
+		}
+	
 	
 	public void draw(Graphics g){
 		g.setColor(Color.GREEN);
-		g.fillRect(x, (int) y, width, height);
+		g.fillRect(x, (int) y, width, getHeight());
 		g.setColor(Color.BLUE);
 		g.fillRect(0, 525, 350, 75);
 		g.fillRect(1600, 525, 350, 75);
 		g.setColor(Color.RED);
 		//g.fillRect(350, 550, 1250, 50);
-		g.drawImage(FinalGamePanel.lavaImg, 350, 550, 1250, 50, null);
+		g.drawImage(FinalGamePanel.lavaImg, 350, 550, 1250, Level2FinalGame.lheight, null);
 		
 	}
 	
@@ -63,5 +64,15 @@ public class Platform{
 	
 	public int getY(){
 		return (int) y;
+	}
+
+
+	public int getHeight() {
+		return height;
+	}
+
+
+	public void setHeight(int height) {
+		this.height = height;
 	}
 }

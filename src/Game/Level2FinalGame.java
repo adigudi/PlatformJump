@@ -30,6 +30,8 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 	static Timer timer;
 	static int x = 20;
 	static int y = 50;
+	static int lheight = 50;
+	static int finishY = 550;
 	static Graphics g;
 	FinalGamePanel GP;
 	static Player p1 = new Player(Player.x, y, 100, 100);
@@ -44,7 +46,7 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 	static Platform platform4 = new Platform(350, 550, 200, 50);
 	static Platform start = new Platform(0, 525, 350, 75);
 	static Platform finish = new Platform(1600, 525, 350, 75);
-	static Platform lava = new Platform(350, 550, 1250, 50);
+	static Platform lava = new Platform(350, finishY, 1250, 50);
 	static ArrayList<Player> players = new ArrayList<Player>();
 	static ArrayList<Platform> platforms = new ArrayList<Platform>();
 	final static int MENU_STATE = 0;
@@ -57,7 +59,7 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 	public static BufferedImage faceImg;
 	public static BufferedImage lavaImg;
 	public static BufferedImage backgroundImg;
-	static int score = (int) Platform.tempo;
+	static int score = (int) Platform.tempo - 1;
 
 	Level2FinalGame() {
 		GP = new FinalGamePanel();
@@ -93,8 +95,6 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 		// platforms.add(new Platform(1200, 600, 200, 50));
 		timer.start();
 		// g1.drawImage(FinalGamePanel.backgroundImg, 0, 0, 1950, 600, null);
-
-
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -108,7 +108,7 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 		System.out.println(currentState);
 
 		repaint();
-
+		
 	}
 	
 	public void playerRemove(Player p) {
@@ -142,7 +142,6 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 		if (p1.getCBox().intersects(Level2FinalGame.lava.getCBox())) {
 			currentState = 2;
 		}
-
 		p1.setYLimit(500);
 		return false;
 	}

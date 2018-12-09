@@ -12,7 +12,8 @@ public class Player {
 	static int y;
 	static int width;
 	static int height;
-
+	static int lavaH = 0;
+	static int lavaHeight = 0;
 	private Rectangle cBox = new Rectangle();
 
 	public boolean left = false;
