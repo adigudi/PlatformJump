@@ -11,7 +11,8 @@ public class Platform{
 	private int height;
 	private Rectangle cBox = new Rectangle();
 	static double tempo = 1;
-	
+	int lastScore;
+	int finishPlat;
 	public Platform(int x, int y, int w, int h){
 		this.x = x;
 		this.y = y;
@@ -39,6 +40,16 @@ public class Platform{
 		if(Level2FinalGame.platform4.y <= 0) {
 			Level2FinalGame.platform4.y = 550;
 		}
+		if(Level2FinalGame.score != lastScore && Level2FinalGame.score % 5 == 0) {
+			lastScore = Level2FinalGame.score;
+			Level2FinalGame.finish.height += 10;
+			finishPlat = Level2FinalGame.finishY -= 10;
+			System.out.println(Level2FinalGame.finish.x + "," + Level2FinalGame.finishY + "," + "350 ," + Level2FinalGame.finish.height);
+		}
+		if(Level2FinalGame.finishY < 0) {
+			Level2FinalGame.finishY = 525;
+		}
+		
 		}
 	
 	
@@ -47,10 +58,11 @@ public class Platform{
 		g.fillRect(x, (int) y, width, getHeight());
 		g.setColor(Color.BLUE);
 		g.fillRect(0, 525, 350, 75);
-		g.fillRect(1600, 525, 350, 75);
+		g.fillRect(1600, finishPlat, 350, 75);
 		g.setColor(Color.RED);
 		//g.fillRect(350, 550, 1250, 50);
 		g.drawImage(FinalGamePanel.lavaImg, 350, 550, 1250, Level2FinalGame.lheight, null);
+		
 		
 	}
 	

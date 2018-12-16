@@ -31,7 +31,7 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 	static int x = 20;
 	static int y = 50;
 	static int lheight = 50;
-	static int finishY = 550;
+	static int finishY = 525;
 	static Graphics g;
 	FinalGamePanel GP;
 	static Player p1 = new Player(Player.x, y, 100, 100);
@@ -45,8 +45,8 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 	static Platform platform3 = new Platform(700, 550, 200, 50);
 	static Platform platform4 = new Platform(350, 550, 200, 50);
 	static Platform start = new Platform(0, 525, 350, 75);
-	static Platform finish = new Platform(1600, 525, 350, 75);
-	static Platform lava = new Platform(350, finishY, 1250, 50);
+	static Platform finish = new Platform(1600, finishY, 350, 75);
+	static Platform lava = new Platform(350, 550, 1250, 50);
 	static ArrayList<Player> players = new ArrayList<Player>();
 	static ArrayList<Platform> platforms = new ArrayList<Platform>();
 	final static int MENU_STATE = 0;
@@ -92,6 +92,7 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 		platforms.add(finish);
 		platforms.add(lava);
 		players.add(p1);
+		finishY = 525;
 		// platforms.add(new Platform(1200, 600, 200, 50));
 		timer.start();
 		// g1.drawImage(FinalGamePanel.backgroundImg, 0, 0, 1950, 600, null);
@@ -105,10 +106,7 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 		for (Platform p : platforms) {
 			p.update();
 		}
-		System.out.println(currentState);
-
 		repaint();
-		
 	}
 	
 	public void playerRemove(Player p) {
@@ -234,6 +232,7 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 	}
 
 	void drawMenuState(Graphics g) {
+		g.drawImage(FinalGamePanel.backgroundImg, 0, 0, 1950, 600, null);
 		g.setColor(Color.BLUE);
 		g.drawImage(FinalGamePanel.faceImg, 600, 220, 200, 200, null);
 		//System.out.println("Image printed");

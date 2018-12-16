@@ -63,7 +63,6 @@ public class Player {
 
 		cBox.setBounds(x, y, width, height);
 		//Player.x = Player.x + 5;
-		System.out.println(Player.x);
 		if (Player.x > 1820) {
 			Player.x = 100;
 			Level2FinalGame.y = 50;
@@ -73,7 +72,6 @@ public class Player {
 		if (Player.y < -50) {
 			yVelocity = 0.5;
 		}
-		System.out.println(Platform.tempo);
 	}
 
 	public void draw(Graphics g) {
