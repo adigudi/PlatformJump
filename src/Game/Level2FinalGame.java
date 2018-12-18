@@ -40,13 +40,13 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 	int rand2 = r.nextInt(500 - 400) + 400;
 	int rand3 = r.nextInt(500 - 400) + 400;
 	int rand4 = r.nextInt(500 - 400) + 400;
-	static Platform platform1 = new Platform(1400, 550, 200, 50);
-	static Platform platform2 = new Platform(1050, 550, 200, 50);
-	static Platform platform3 = new Platform(700, 550, 200, 50);
-	static Platform platform4 = new Platform(350, 550, 200, 50);
-	static Platform start = new Platform(0, 525, 350, 75);
-	static Platform finish = new Platform(1600, finishY, 350, 75);
-	static Platform lava = new Platform(350, 550, 1250, 50);
+	static Platform platform1 = new Platform(1400, 550, 200, 50, 0.5/2);
+	static Platform platform2 = new Platform(1050, 550, 200, 50, 0.475/2);
+	static Platform platform3 = new Platform(700, 550, 200, 50, 0.25/2);
+	static Platform platform4 = new Platform(350, 550, 200, 50, 0.125/2);
+	static Platform start = new Platform(0, 525, 350, 75, 0);
+	static Platform finish = new Platform(1600, finishY, 350, 75, 0);
+	static Platform lava = new Platform(350, 550, 1250, 50, 0);
 	static ArrayList<Player> players = new ArrayList<Player>();
 	static ArrayList<Platform> platforms = new ArrayList<Platform>();
 	final static int MENU_STATE = 0;
@@ -88,11 +88,12 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 		platforms.add(platform2);
 		platforms.add(platform3);
 		platforms.add(platform4);
-		platforms.add(start);
-		platforms.add(finish);
-		platforms.add(lava);
+		//platforms.add(start);
+		//platforms.add(finish);
+		//platforms.add(lava);
 		players.add(p1);
 		finishY = 525;
+		score = 6;
 		// platforms.add(new Platform(1200, 600, 200, 50));
 		timer.start();
 		// g1.drawImage(FinalGamePanel.backgroundImg, 0, 0, 1950, 600, null);
@@ -244,8 +245,13 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 
 	void drawGameState(Graphics g) {
 		g.drawImage(FinalGamePanel.backgroundImg, 0, 0, 1950, 600, null);
-		p1.draw(g);
 		g.setColor(Color.BLUE);
+		g.fillRect(0, 525, 350, 75);
+		g.fillRect(1600, finishY, 350, 75);
+		g.setColor(Color.RED);
+		//g.fillRect(350, 550, 1250, 50);
+		g.drawImage(FinalGamePanel.lavaImg, 350, 550, 1250, Level2FinalGame.lheight, null);
+		p1.draw(g);
 		g.setColor(Color.BLACK);
 		g.setFont(instructionsFont);
 		g.drawString("Score:" + score, x, y);

@@ -4,30 +4,33 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
+import org.omg.Messaging.SyncScopeHelper;
+
 public class Platform{
 	private int x;
 	private double y;
+	private double yspeed;
 	private int width;
 	private int height;
 	private Rectangle cBox = new Rectangle();
 	static double tempo = 1;
 	int lastScore;
-	int finishPlat;
-	public Platform(int x, int y, int w, int h){
+	static int finishPlat;
+	public Platform(int x, int y, int w, int h, double yspeed){
 		this.x = x;
 		this.y = y;
 		this.width = w;
 		this.setHeight(h);
+		this.yspeed = yspeed;
 		cBox.setBounds(x, y, width, getHeight());
 	}
 
 	
 	public void update(){
 		cBox.setBounds(x, (int) y, width, getHeight());
-		Level2FinalGame.platform1.y = Level2FinalGame.platform1.y - (0.5/2)*tempo;
-		Level2FinalGame.platform2.y = Level2FinalGame.platform2.y - (0.475/2)*tempo;
-		Level2FinalGame.platform3.y = Level2FinalGame.platform3.y - (0.25/2)*tempo;
-		Level2FinalGame.platform4.y = Level2FinalGame.platform4.y - (0.125/2)*tempo;
+		y = y - yspeed*tempo;
+		
+		System.out.println(Level2FinalGame.platform1.x);
 		if(Level2FinalGame.platform1.y <= 0) {
 			Level2FinalGame.platform1.y = 550;
 		}
@@ -40,15 +43,19 @@ public class Platform{
 		if(Level2FinalGame.platform4.y <= 0) {
 			Level2FinalGame.platform4.y = 550;
 		}
-		if(Level2FinalGame.score != lastScore && Level2FinalGame.score % 5 == 0) {
-			lastScore = Level2FinalGame.score;
-			Level2FinalGame.finish.height += 10;
+		/*if(Level2FinalGame.score != lastScore && Level2FinalGame.score % 5 == 0) {
+			//lastScore = Level2FinalGame.score;
+			//Level2FinalGame.finish.height += 10;
 			finishPlat = Level2FinalGame.finishY -= 10;
 			System.out.println(Level2FinalGame.finish.x + "," + Level2FinalGame.finishY + "," + "350 ," + Level2FinalGame.finish.height);
+		}*/
+		if(Level2FinalGame.score > 5) {
+			x = (int) (x - yspeed*tempo);
+			if(x > Level2FinalGame.WIDTH || x > 0) {
+				tempo = -tempo;
+			}
 		}
-		if(Level2FinalGame.finishY < 0) {
-			Level2FinalGame.finishY = 525;
-		}
+		
 		
 		}
 	
@@ -56,12 +63,8 @@ public class Platform{
 	public void draw(Graphics g){
 		g.setColor(Color.GREEN);
 		g.fillRect(x, (int) y, width, getHeight());
-		g.setColor(Color.BLUE);
-		g.fillRect(0, 525, 350, 75);
-		g.fillRect(1600, finishPlat, 350, 75);
-		g.setColor(Color.RED);
-		//g.fillRect(350, 550, 1250, 50);
-		g.drawImage(FinalGamePanel.lavaImg, 350, 550, 1250, Level2FinalGame.lheight, null);
+		//g.fillRect(1600, finishPlat, 350, 75);
+	
 		
 		
 	}
