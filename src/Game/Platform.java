@@ -3,6 +3,7 @@ package Game;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.awt.event.KeyEvent;
 
 import org.omg.Messaging.SyncScopeHelper;
 
@@ -28,9 +29,16 @@ public class Platform{
 	
 	public void update(){
 		cBox.setBounds(x, (int) y, width, getHeight());
+		System.out.println(Player.x);
+		if(Player.x >= 1820) {
+			tempo += 0.5;
+		}
 		y = y - yspeed*tempo;
-		
-		System.out.println(Level2FinalGame.platform1.x);
+		Level2FinalGame.y1 = 550;
+		Level2FinalGame.y2 = 550;
+		Level2FinalGame.y3 = 550;
+		Level2FinalGame.y4 = 550;
+		//System.out.println(Level2FinalGame.platform1.x);
 		if(Level2FinalGame.platform1.y <= 0) {
 			Level2FinalGame.platform1.y = 550;
 		}
@@ -49,22 +57,14 @@ public class Platform{
 			finishPlat = Level2FinalGame.finishY -= 10;
 			System.out.println(Level2FinalGame.finish.x + "," + Level2FinalGame.finishY + "," + "350 ," + Level2FinalGame.finish.height);
 		}*/
-		if(Level2FinalGame.score > 5) {
-			x = (int) (x - yspeed*tempo);
-			if(x > Level2FinalGame.WIDTH || x > 0) {
-				tempo = -tempo;
-			}
-		}
-		
-		
-		}
+	
+	}
 	
 	
 	public void draw(Graphics g){
 		g.setColor(Color.GREEN);
-		g.fillRect(x, (int) y, width, getHeight());
-		//g.fillRect(1600, finishPlat, 350, 75);
-	
+		//g.fillRect(x, (int) y, width, getHeight());
+		g.drawImage(FinalGamePanel.platformImg, 1400, (int) y, 200, 50, null);
 		
 		
 	}

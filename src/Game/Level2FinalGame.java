@@ -32,6 +32,10 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 	static int y = 50;
 	static int lheight = 50;
 	static int finishY = 525;
+	static int y1;
+	static int y2;
+	static int y3;
+	static int y4;
 	static Graphics g;
 	FinalGamePanel GP;
 	static Player p1 = new Player(Player.x, y, 100, 100);
@@ -40,10 +44,10 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 	int rand2 = r.nextInt(500 - 400) + 400;
 	int rand3 = r.nextInt(500 - 400) + 400;
 	int rand4 = r.nextInt(500 - 400) + 400;
-	static Platform platform1 = new Platform(1400, 550, 200, 50, 0.5/2);
-	static Platform platform2 = new Platform(1050, 550, 200, 50, 0.475/2);
-	static Platform platform3 = new Platform(700, 550, 200, 50, 0.25/2);
-	static Platform platform4 = new Platform(350, 550, 200, 50, 0.125/2);
+	static Platform platform1 = new Platform(1400, y1, 200, 50, 1);
+	static Platform platform2 = new Platform(1050, y2, 200, 50, 0.750);
+	static Platform platform3 = new Platform(700, y3, 200, 50, 0.5);
+	static Platform platform4 = new Platform(350, y4, 200, 50, 0.25);
 	static Platform start = new Platform(0, 525, 350, 75, 0);
 	static Platform finish = new Platform(1600, finishY, 350, 75, 0);
 	static Platform lava = new Platform(350, 550, 1250, 50, 0);
@@ -93,7 +97,6 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 		//platforms.add(lava);
 		players.add(p1);
 		finishY = 525;
-		score = 6;
 		// platforms.add(new Platform(1200, 600, 200, 50));
 		timer.start();
 		// g1.drawImage(FinalGamePanel.backgroundImg, 0, 0, 1950, 600, null);
@@ -179,6 +182,7 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 		}
 		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 			currentState = 1;
+			p1.update();
 		}
 		if (e.getKeyCode() == KeyEvent.VK_P) {
 			currentState = 0;
@@ -188,6 +192,7 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 			Platform.tempo = 1;
 			
 		}
+	
 
 	}
 
@@ -269,6 +274,7 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 		g.drawString("GAME OVER!", 800, 300);
 		g.setFont(instructionsFont);
 		g.drawString("Press P to go back to the main menu", 900, 400);
+		g.drawString("Press ESC to exit the game", 900, 500);
 		
 		
 	}
@@ -276,11 +282,11 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 	public void paintComponent(Graphics g) {
 		// TODO Auto-generated method stub
 		repaint();
-		if (currentState == MENU_STATE) {
+		if (currentState == 0) {
 			drawMenuState(g);
-		} else if (currentState == GAME_STATE) {
+		} else if (currentState == 1) {
 			drawGameState(g);
-		} else if (currentState == END_STATE) {
+		} else if (currentState == 2) {
 			drawEndState(g);
 		}
 	}

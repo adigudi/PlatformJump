@@ -16,6 +16,7 @@ public class FinalGamePanel{
 	public static BufferedImage faceImg;
 	public static BufferedImage lavaImg;
 	public static BufferedImage backgroundImg;
+	public static BufferedImage platformImg;
 	int maxX = 1050;
 	int startX = 50;
 	final static int MENU_STATE = 0;
@@ -32,7 +33,7 @@ public class FinalGamePanel{
         faceImg = ImageIO.read(this.getClass().getResourceAsStream("smile.png"));
         lavaImg = ImageIO.read(this.getClass().getResourceAsStream("lava.png"));
         backgroundImg = ImageIO.read(this.getClass().getResourceAsStream("background.png"));
-        //platImg = ImageIO.read(this.getClass().getResourceAsStream("blue.png"));
+        platformImg = ImageIO.read(this.getClass().getResourceAsStream("platform.png"));
 
       
 
