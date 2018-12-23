@@ -15,7 +15,7 @@ public class Platform{
 	private int height;
 	private Rectangle cBox = new Rectangle();
 	static double tempo = 1;
-	int lastScore;
+	static int lastScore;
 	static int finishPlat;
 	public Platform(int x, int y, int w, int h, double yspeed){
 		this.x = x;
@@ -34,10 +34,6 @@ public class Platform{
 			tempo += 0.5;
 		}
 		y = y - yspeed*tempo;
-		Level2FinalGame.y1 = 550;
-		Level2FinalGame.y2 = 550;
-		Level2FinalGame.y3 = 550;
-		Level2FinalGame.y4 = 550;
 		//System.out.println(Level2FinalGame.platform1.x);
 		if(Level2FinalGame.platform1.y <= 0) {
 			Level2FinalGame.platform1.y = 550;
@@ -64,9 +60,8 @@ public class Platform{
 	public void draw(Graphics g){
 		g.setColor(Color.GREEN);
 		//g.fillRect(x, (int) y, width, getHeight());
-		g.drawImage(FinalGamePanel.platformImg, 1400, (int) y, 200, 50, null);
-		
-		
+		g.drawImage(FinalGamePanel.platformImg, x, (int) y, 200, 50, null);
+		g.drawRect(cBox.x, cBox.y, cBox.width, cBox.height);
 	}
 	
 	public Rectangle getCBox(){

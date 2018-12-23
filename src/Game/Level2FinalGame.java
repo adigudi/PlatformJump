@@ -30,12 +30,12 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 	static Timer timer;
 	static int x = 20;
 	static int y = 50;
-	static int lheight = 50;
 	static int finishY = 525;
-	static int y1;
-	static int y2;
-	static int y3;
-	static int y4;
+	static int y1 = 550;
+	static int y2 = 550;
+	static int y3 = 550;
+	static int y4 = 550;
+	static int lavaHeight;
 	static Graphics g;
 	FinalGamePanel GP;
 	static Player p1 = new Player(Player.x, y, 100, 100);
@@ -50,7 +50,7 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 	static Platform platform4 = new Platform(350, y4, 200, 50, 0.25);
 	static Platform start = new Platform(0, 525, 350, 75, 0);
 	static Platform finish = new Platform(1600, finishY, 350, 75, 0);
-	static Platform lava = new Platform(350, 550, 1250, 50, 0);
+	static Platform lava = new Platform(350, 550, 1250, lavaHeight, 0);
 	static ArrayList<Player> players = new ArrayList<Player>();
 	static ArrayList<Platform> platforms = new ArrayList<Platform>();
 	final static int MENU_STATE = 0;
@@ -94,7 +94,7 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 		platforms.add(platform4);
 		//platforms.add(start);
 		//platforms.add(finish);
-		//platforms.add(lava);
+		platforms.add(lava);
 		players.add(p1);
 		finishY = 525;
 		// platforms.add(new Platform(1200, 600, 200, 50));
@@ -111,6 +111,7 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 			p.update();
 		}
 		repaint();
+		System.out.println(lavaHeight);
 	}
 	
 	public void playerRemove(Player p) {
@@ -255,13 +256,24 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 		g.fillRect(1600, finishY, 350, 75);
 		g.setColor(Color.RED);
 		//g.fillRect(350, 550, 1250, 50);
-		g.drawImage(FinalGamePanel.lavaImg, 350, 550, 1250, Level2FinalGame.lheight, null);
+		g.drawImage(FinalGamePanel.lavaImg, 350, 550, 1250, 50, null);
 		p1.draw(g);
 		g.setColor(Color.BLACK);
 		g.setFont(instructionsFont);
 		g.drawString("Score:" + score, x, y);
 		for (Platform p : platforms) {
 			p.draw(g);
+		}
+		//if(Level2FinalGame.score != Platform.lastScore && score % 5 == 0) {
+		if(score % 5 == 0 && score != 0) {
+			int lavaIncrease = 10;
+			lavaHeight = 50 + lavaIncrease;
+			platforms.remove(lava);
+			Platform lavaNew = new Platform(350, 550, 1250, lavaHeight, 0);
+			g.drawImage(FinalGamePanel.lavaImg, 350, 550, 1250, lavaHeight, null);
+			if (p1.getCBox().intersects(lavaNew.getCBox())) {
+				currentState = 2;
+			}
 		}
 
 	}
