@@ -29,7 +29,6 @@ public class Platform{
 	
 	public void update(){
 		cBox.setBounds(x, (int) y, width, getHeight());
-		System.out.println(Player.x);
 		if(Player.x >= 1820) {
 			tempo += 0.5;
 		}

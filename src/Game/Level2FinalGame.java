@@ -35,9 +35,11 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 	static int y2 = 550;
 	static int y3 = 550;
 	static int y4 = 550;
-	static int lavaHeight;
+	static int lavaY;
+	static int lavaIncrease = 0;
 	static Graphics g;
 	FinalGamePanel GP;
+	static boolean scoreIsFive;
 	static Player p1 = new Player(Player.x, y, 100, 100);
 	Random r = new Random();
 	int rand = r.nextInt(500 - 400) + 400;
@@ -50,9 +52,10 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 	static Platform platform4 = new Platform(350, y4, 200, 50, 0.25);
 	static Platform start = new Platform(0, 525, 350, 75, 0);
 	static Platform finish = new Platform(1600, finishY, 350, 75, 0);
-	static Platform lava = new Platform(350, 550, 1250, lavaHeight, 0);
+	static Lava lava = new Lava(350, 550, 1250, 50);
 	static ArrayList<Player> players = new ArrayList<Player>();
 	static ArrayList<Platform> platforms = new ArrayList<Platform>();
+	static ArrayList<Lava> lavas = new ArrayList<Lava>();
 	final static int MENU_STATE = 0;
 	final int GAME_STATE = 1;
 	final int END_STATE = 2;
@@ -94,12 +97,13 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 		platforms.add(platform4);
 		//platforms.add(start);
 		//platforms.add(finish);
-		platforms.add(lava);
+		lavas.add(lava);
 		players.add(p1);
 		finishY = 525;
 		// platforms.add(new Platform(1200, 600, 200, 50));
 		timer.start();
 		// g1.drawImage(FinalGamePanel.backgroundImg, 0, 0, 1950, 600, null);
+		lavaY = 550;
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -111,7 +115,7 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 			p.update();
 		}
 		repaint();
-		System.out.println(lavaHeight);
+		lava.lavaUpdate();
 	}
 	
 	public void playerRemove(Player p) {
@@ -142,8 +146,9 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 			handleCollision(finish);
 			return true;
 		}
-		if (p1.getCBox().intersects(Level2FinalGame.lava.getCBox())) {
+		if (p1.getCBox().intersects(lava.getCBox())) {
 			currentState = 2;
+			System.out.println("Game Over!");
 		}
 		p1.setYLimit(500);
 		return false;
@@ -256,7 +261,6 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 		g.fillRect(1600, finishY, 350, 75);
 		g.setColor(Color.RED);
 		//g.fillRect(350, 550, 1250, 50);
-		g.drawImage(FinalGamePanel.lavaImg, 350, 550, 1250, 50, null);
 		p1.draw(g);
 		g.setColor(Color.BLACK);
 		g.setFont(instructionsFont);
@@ -264,16 +268,20 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 		for (Platform p : platforms) {
 			p.draw(g);
 		}
+		for (Lava l : lavas) {
+			l.drawLava(g);
+		}
 		//if(Level2FinalGame.score != Platform.lastScore && score % 5 == 0) {
 		if(score % 5 == 0 && score != 0) {
-			int lavaIncrease = 10;
-			lavaHeight = 50 + lavaIncrease;
-			platforms.remove(lava);
-			Platform lavaNew = new Platform(350, 550, 1250, lavaHeight, 0);
-			g.drawImage(FinalGamePanel.lavaImg, 350, 550, 1250, lavaHeight, null);
+			lavaIncrease = 10;
+			lavaY = 550 - lavaIncrease*(score/5);
+			lavas.remove(lava);
+			Lava lavaNew = new Lava(350, lavaY, 1250, 50 + lavaIncrease*(score/5));
+			lavas.add(lavaNew);
+			g.drawImage(FinalGamePanel.lavaImg, 350, Level2FinalGame.lavaY, 1250, 50 + lavaIncrease*(Level2FinalGame.score/5), null);
 			if (p1.getCBox().intersects(lavaNew.getCBox())) {
 				currentState = 2;
-			}
+		}
 		}
 
 	}
