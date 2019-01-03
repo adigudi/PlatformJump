@@ -20,9 +20,9 @@ public class Lava {
 	public void lavaUpdate() {
 		cBox.setBounds(x, y, width, height);
 	}
-	public void drawLava(Graphics g){
-		g.drawImage(FinalGamePanel.lavaImg, 350, Level2FinalGame.lavaY, 1250, 50 + Level2FinalGame.lavaIncrease*(Level2FinalGame.score/5), null);
-	}
+	/*public void drawLava(Graphics g){
+		g.drawImage(FinalGamePanel.lavaImg, 350, Level2FinalGame.lavaY, 1250, 50 + Level2FinalGame.lavaIncrease*(Level2FinalGame.getScore() % 5), null);
+	}*/
 	public Rectangle getCBox(){
 		return cBox;
 	}

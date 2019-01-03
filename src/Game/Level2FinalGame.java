@@ -36,7 +36,7 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 	static int y3 = 550;
 	static int y4 = 550;
 	static int lavaY;
-	static int lavaIncrease = 0;
+	static int lavaIncrease = 10;
 	static Graphics g;
 	FinalGamePanel GP;
 	static boolean scoreIsFive;
@@ -66,7 +66,7 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 	public static BufferedImage faceImg;
 	public static BufferedImage lavaImg;
 	public static BufferedImage backgroundImg;
-	static int score = (int) Platform.tempo - 1;
+	private static int score = 0;
 
 	Level2FinalGame() {
 		GP = new FinalGamePanel();
@@ -75,6 +75,18 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 	public static void main(String[] args) {
 		Level2FinalGame game = new Level2FinalGame();
 		game.run();
+	}
+	
+	public static void setScore(int newScore) {
+		score = newScore;
+	}
+	
+	public static int getScore() {
+		return score;
+	}
+	
+	public static void increaseScore() {
+		score++;
 	}
 
 	public void run() {
@@ -100,6 +112,7 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 		lavas.add(lava);
 		players.add(p1);
 		finishY = 525;
+		score = 15;
 		// platforms.add(new Platform(1200, 600, 200, 50));
 		timer.start();
 		// g1.drawImage(FinalGamePanel.backgroundImg, 0, 0, 1950, 600, null);
@@ -188,6 +201,7 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 		}
 		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 			currentState = 1;
+			Platform.resetPlatforms(platform1, platform2, platform3, platform4);
 			p1.update();
 		}
 		if (e.getKeyCode() == KeyEvent.VK_P) {
@@ -268,20 +282,22 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 		for (Platform p : platforms) {
 			p.draw(g);
 		}
-		for (Lava l : lavas) {
+		/*for (Lava l : lavas) {
 			l.drawLava(g);
-		}
+		}*/
 		//if(Level2FinalGame.score != Platform.lastScore && score % 5 == 0) {
+		g.drawImage(FinalGamePanel.lavaImg, 350, 550, 1250, 50, null);
 		if(score % 5 == 0 && score != 0) {
-			lavaIncrease = 10;
-			lavaY = 550 - lavaIncrease*(score/5);
+			int newLavaIncrease = lavaIncrease*(getScore()/5);
+			lavaY = 550 - newLavaIncrease;
 			lavas.remove(lava);
-			Lava lavaNew = new Lava(350, lavaY, 1250, 50 + lavaIncrease*(score/5));
+			Lava lavaNew = new Lava(350, lavaY, 1250, 50 + newLavaIncrease);
 			lavas.add(lavaNew);
-			g.drawImage(FinalGamePanel.lavaImg, 350, Level2FinalGame.lavaY, 1250, 50 + lavaIncrease*(Level2FinalGame.score/5), null);
+			g.drawImage(FinalGamePanel.lavaImg, 350, Level2FinalGame.lavaY, 1250, 50 + newLavaIncrease, null);
 			if (p1.getCBox().intersects(lavaNew.getCBox())) {
 				currentState = 2;
 		}
+
 		}
 
 	}

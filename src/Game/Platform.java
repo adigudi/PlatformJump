@@ -52,7 +52,15 @@ public class Platform{
 			finishPlat = Level2FinalGame.finishY -= 10;
 			System.out.println(Level2FinalGame.finish.x + "," + Level2FinalGame.finishY + "," + "350 ," + Level2FinalGame.finish.height);
 		}*/
+		
 	
+	}
+	
+	public static void resetPlatforms(Platform platform1, Platform platform2, Platform platform3, Platform platform4) {
+		platform1.y = 550;
+		platform2.y = 550;
+		platform3.y = 550;
+		platform4.y = 550;
 	}
 	
 	
@@ -61,6 +69,8 @@ public class Platform{
 		//g.fillRect(x, (int) y, width, getHeight());
 		g.drawImage(FinalGamePanel.platformImg, x, (int) y, 200, 50, null);
 		g.drawRect(cBox.x, cBox.y, cBox.width, cBox.height);
+		g.drawImage(FinalGamePanel.stoneImg, 0, 525, 350, 75, null);
+		g.drawImage(FinalGamePanel.stoneImg, 1600, Level2FinalGame.finishY, 350, 75, null);
 	}
 	
 	public Rectangle getCBox(){
