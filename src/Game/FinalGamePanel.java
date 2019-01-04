@@ -18,6 +18,7 @@ public class FinalGamePanel{
 	public static BufferedImage backgroundImg;
 	public static BufferedImage platformImg;
 	public static BufferedImage stoneImg;
+	public static BufferedImage PowerUpImg;
 	int maxX = 1050;
 	int startX = 50;
 	final static int MENU_STATE = 0;
@@ -27,7 +28,7 @@ public class FinalGamePanel{
 	FinalGamePanel() {
 		titleFont = new Font("Helvetica Neue", Font.PLAIN, 48);
 		endFont = new Font("Helvetica Neue", Font.PLAIN, 48);
-	
+
 	
 	try {
 
@@ -36,6 +37,7 @@ public class FinalGamePanel{
         backgroundImg = ImageIO.read(this.getClass().getResourceAsStream("background.png"));
         platformImg = ImageIO.read(this.getClass().getResourceAsStream("platform.png"));
         stoneImg = ImageIO.read(this.getClass().getResourceAsStream("stone.png"));
+        PowerUpImg = ImageIO.read(this.getClass().getResourceAsStream("powerup.png"));
 
       
 
