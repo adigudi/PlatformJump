@@ -15,18 +15,13 @@ public class Player {
 	static int lavaH = 0;
 	static int lavaHeight = 0;
 	private Rectangle cBox = new Rectangle();
-
 	public boolean left = false;
 	public boolean right = false;
-
 	private int xVelocity = 5;
-
 	private int gravity = 1;
 	private double yVelocity = 0;
 	private int jumpPower = 20;
-
 	private int yLimit = 500;
-
 	boolean canJump = false;
 
 	public Player(int x, int y, int w, int h) {
@@ -108,3 +103,4 @@ public class Player {
 		return yVelocity;
 	}
 }
+
