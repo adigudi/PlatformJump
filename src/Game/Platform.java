@@ -26,7 +26,6 @@ public class Platform{
 		cBox.setBounds(x, y, width, getHeight());
 	}
 
-	
 	public void update(){
 		cBox.setBounds(x, (int) y, width, getHeight());
 		if(Player.x >= 1820) {
@@ -68,7 +67,6 @@ public class Platform{
 		g.setColor(Color.GREEN);
 		//g.fillRect(x, (int) y, width, getHeight());
 		g.drawImage(FinalGamePanel.platformImg, x, (int) y, 200, 50, null);
-		g.drawRect(cBox.x, cBox.y, cBox.width, cBox.height);
 		g.drawImage(FinalGamePanel.stoneImg, 0, 525, 350, 75, null);
 		g.drawImage(FinalGamePanel.stoneImg, 1600, Level2FinalGame.finishY, 350, 75, null);
 	}
