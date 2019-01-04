@@ -28,7 +28,7 @@ public class ObjectManagerGame {
 			for (Platform p : platforms) {
 				p.update();
 			}
-
+			
 			repaint();
 
 		}
@@ -106,3 +106,4 @@ public class ObjectManagerGame {
 		}
 	
 	}
+
