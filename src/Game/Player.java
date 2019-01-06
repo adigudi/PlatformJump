@@ -17,10 +17,10 @@ public class Player {
 	private Rectangle cBox = new Rectangle();
 	public boolean left = false;
 	public boolean right = false;
-	private int xVelocity = 5;
+	static int xVelocity = 5;
 	private int gravity = 1;
 	private double yVelocity = 0;
-	private int jumpPower = 20;
+	static int jumpPower = 20;
 	private int yLimit = 500;
 	boolean canJump = false;
 

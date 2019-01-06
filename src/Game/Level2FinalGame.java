@@ -1,6 +1,7 @@
 package Game;
 //HERE ARE SOME CHANGES!!!
 
+import java.applet.AudioClip;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import javax.imageio.ImageIO;
+import javax.swing.JApplet;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -71,6 +73,9 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 	public static BufferedImage lavaImg;
 	public static BufferedImage backgroundImg;
 	private static int score = 0;
+	String song = "powerup.wav";
+	String gameover = "gameover.wav";
+	AudioClip sound;
 
 	Level2FinalGame() {
 		GP = new FinalGamePanel();
@@ -219,7 +224,9 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 			score = 0;
 			Player p1 = new Player(Player.x, y, 100, 100);
 			Platform.tempo = 1;
-
+		}
+		if(e.getKeyCode() == KeyEvent.VK_ENTER && currentState == 2) {
+			System.exit(0);
 		}
 
 	}
@@ -232,6 +239,13 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 		}
 		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
 			p1.right = false;
+		}
+	}
+	
+	public void playSound(String fileName) {
+		if(sound == null) {
+		sound = JApplet.newAudioClip(getClass().getResource(fileName));
+			sound.play();
 		}
 	}
 
@@ -262,7 +276,10 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 	}
 
 	void updateEndState() {
-
+		Platform.resetPlatforms(platform1, platform2, platform3, platform4);
+		Platform.tempo = 0;
+		Player.xVelocity = 0;
+		Player.jumpPower = 0;
 	}
 
 	void drawMenuState(Graphics g) {
@@ -296,7 +313,7 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 		// if(Level2FinalGame.score != Platform.lastScore && score % 5 == 0) {
 		
 		g.drawImage(FinalGamePanel.lavaImg, 350, 550, 1250, 50, null);
-		if (score % 5 == 0 && score != 0) {
+		if (score % 5 == 0 && score != 0 || score == 10) {
 			for (PowerUp p : powerups) {
 				PowerUp.drawPowerUp(g);
 			}
@@ -311,6 +328,8 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 				currentState = 2;
 			}
 			if (p1.getCBox().intersects(powerup.getCBox())) {
+				playSound(song);
+				PowerUp.deleteCBOX();
 				powerups.remove(powerup);
 				Platform.resetPlatforms(platform1, platform2, platform3, platform4);
 				while(Player.x > 1820)
@@ -322,14 +341,17 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 	
 	
 	void drawEndState(Graphics g) {
+		updateEndState();
+		playSound(gameover);
 		g.setColor(Color.RED);
 		g.fillRect(0, 0, 1950, 600);
 		g.setFont(endFont);
 		g.setColor(Color.BLACK);
 		g.drawString("GAME OVER!", 800, 300);
 		g.setFont(instructionsFont);
-		g.drawString("Press P to go back to the main menu", 900, 400);
-		g.drawString("Press ESC to exit the game", 900, 500);
+		g.drawString("Your final score is " + getScore(), 800, 400);
+		g.drawString("Press P to go back to the main menu", 800, 500);
+		g.drawString("Press ESC to exit the game", 800, 550);
 
 	}
 	

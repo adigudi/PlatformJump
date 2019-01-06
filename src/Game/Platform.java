@@ -56,10 +56,10 @@ public class Platform{
 	}
 	
 	public static void resetPlatforms(Platform platform1, Platform platform2, Platform platform3, Platform platform4) {
-		platform1.y = 550;
-		platform2.y = 550;
-		platform3.y = 550;
-		platform4.y = 550;
+		platform1.y = 500;
+		platform2.y = 500;
+		platform3.y = 500;
+		platform4.y = 500;
 	}
 	
 	
