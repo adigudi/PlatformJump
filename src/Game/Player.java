@@ -5,6 +5,8 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
+import javax.swing.JApplet;
+
 
 
 public class Player {
@@ -18,11 +20,12 @@ public class Player {
 	public boolean left = false;
 	public boolean right = false;
 	static int xVelocity = 5;
-	private int gravity = 1;
-	private double yVelocity = 0;
+	static int gravity = 1;
+	static double yVelocity = 0;
 	static int jumpPower = 20;
 	private int yLimit = 500;
 	boolean canJump = false;
+	String point = "point.wav";
 
 	public Player(int x, int y, int w, int h) {
 		this.x = x;
@@ -62,13 +65,19 @@ public class Player {
 			Player.x = 100;
 			Level2FinalGame.y = 50;
 			Platform.tempo++;
+			playPoint();
 			Level2FinalGame.increaseScore();
 		}
 		if (Player.y < -50) {
 			yVelocity = 0.5;
 		}
 	}
+	public void playPoint() {
+		Level2FinalGame.sound = JApplet.newAudioClip(getClass().getResource(point));
+		Level2FinalGame.sound.play();
+	}
 
+	
 	public void draw(Graphics g) {
 		//g.setColor(Color.BLUE);
 		//g.fillRect(x, y, width, height);
@@ -103,4 +112,3 @@ public class Player {
 		return yVelocity;
 	}
 }
-
