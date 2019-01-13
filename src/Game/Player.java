@@ -26,7 +26,10 @@ public class Player {
 	private int yLimit = 500;
 	boolean canJump = false;
 	String point = "point.wav";
-
+	static int highScore = 0;
+	static int highScoreDifference;
+	static int newHighScore;
+	
 	public Player(int x, int y, int w, int h) {
 		this.x = x;
 		this.y = y;
@@ -70,6 +73,10 @@ public class Player {
 		}
 		if (Player.y < -50) {
 			yVelocity = 0.5;
+		}
+		if(Level2FinalGame.score > highScore) {
+			highScoreDifference = Level2FinalGame.score - highScore;
+			newHighScore = highScore + highScoreDifference;
 		}
 	}
 	public void playPoint() {

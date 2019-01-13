@@ -20,6 +20,7 @@ import java.util.Random;
 import javax.imageio.ImageIO;
 import javax.swing.JApplet;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -72,7 +73,7 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 	public static BufferedImage faceImg;
 	public static BufferedImage lavaImg;
 	public static BufferedImage backgroundImg;
-	private static int score = 0;
+	static int score = 0;
 	String song = "powerup.wav";
 	String gameover = "gameover.wav";
 	String point = "point.wav";
@@ -212,6 +213,9 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 			timer.stop();
 			System.exit(0);
 		}
+		if (e.getKeyCode() == KeyEvent.VK_I) {
+			JOptionPane.showMessageDialog(null," - Use the arrow keys to move and SPACE to jump in order to reach the finish platform to get a point. \n - As your score increases, the speed at which the platforms move also increases. \n - When your score reaches a multiple of 5, the lava will increase in height and a powerup will appear, but then the lava will eventually go down to its normal height when you score a point. \n - When you hit the powerup, the platforms will reset to the same speed at which you started the game. \n - After your score reaches 10, the powerups will no longer show up. \n - Good Luck and Have Fun! :)");
+		}
 		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 			sound.stop();
 			currentState = 1;
@@ -306,6 +310,7 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 		g.drawString("Platform Jump", 870, 300);
 		g.setFont(instructionsFont);
 		g.drawString("Press ENTER to play", 870, 400);
+		g.drawString("Press I for instructions", 870, 500);
 	}
 
 	void drawGameState(Graphics g) {
@@ -363,9 +368,10 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 		g.fillRect(0, 0, 1950, 600);
 		g.setFont(endFont);
 		g.setColor(Color.BLACK);
-		g.drawString("GAME OVER!", 800, 300);
+		g.drawString("GAME OVER!", 800, 200);
 		g.setFont(instructionsFont);
-		g.drawString("Your final score is " + getScore(), 800, 400);
+		g.drawString("Your final score is " + getScore(), 800, 300);
+		g.drawString("High Score: " + Player.newHighScore, 800, 400);
 		g.drawString("Press P to go back to the main menu", 800, 500);
 		g.drawString("Press ESC to exit the game", 800, 550);
 
