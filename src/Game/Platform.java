@@ -60,6 +60,7 @@ public class Platform{
 		platform2.y = 500;
 		platform3.y = 500;
 		platform4.y = 500;
+		Platform.tempo = 1;
 	}
 	
 	
