@@ -24,7 +24,7 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class Level2FinalGame extends JPanel implements ActionListener, KeyListener {
-	
+
 	private static final long serialVersionUID = 1L;
 	public static final int WIDTH = 1950;
 	public static final int HEIGHT = 600;
@@ -75,7 +75,9 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 	private static int score = 0;
 	String song = "powerup.wav";
 	String gameover = "gameover.wav";
-	AudioClip sound;
+	String point = "point.wav";
+	String intro = "game.wav";
+	static AudioClip sound;
 
 	Level2FinalGame() {
 		GP = new FinalGamePanel();
@@ -98,7 +100,7 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 		score++;
 	}
 
-	public void run(){
+	public void run() {
 		window = new JFrame("Platform Jump");
 		window.addKeyListener(this);
 		window.add(this);
@@ -122,9 +124,10 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 		powerups.add(powerup);
 		players.add(p1);
 		finishY = 525;
-		score = 5;
+		score = 0;
 		// platforms.add(new Platform(1200, 600, 200, 50));
 		timer.start();
+		playIntro();
 		// g1.drawImage(FinalGamePanel.backgroundImg, 0, 0, 1950, 600, null);
 		lavaY = 550;
 	}
@@ -139,7 +142,7 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 		}
 		repaint();
 		lava.lavaUpdate();
-		for (PowerUp p: powerups) {
+		for (PowerUp p : powerups) {
 			p.powerUpUpdate();
 		}
 	}
@@ -172,10 +175,6 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 		if (p1.getCBox().intersects(Level2FinalGame.finish.getCBox())) {
 			handleCollision(finish);
 			return true;
-		}
-		if (p1.getCBox().intersects(lava.getCBox())) {
-			currentState = 2;
-			System.out.println("Game Over!");
 		}
 		p1.setYLimit(500);
 		return false;
@@ -214,21 +213,20 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 			System.exit(0);
 		}
 		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+			sound.stop();
 			currentState = 1;
-			Platform.resetPlatforms(platform1, platform2, platform3, platform4);
+			if (e.getKeyCode() == KeyEvent.VK_ENTER && currentState == 2) {
+				Platform.resetPlatforms(platform1, platform2, platform3, platform4);
+			}
 			p1.update();
+			Platform.tempo = 1;
+			Player.xVelocity = 5;
+			Player.jumpPower = 20;
 		}
 		if (e.getKeyCode() == KeyEvent.VK_P) {
 			currentState = 0;
-			Player.x = 20;
-			score = 0;
-			Player p1 = new Player(Player.x, y, 100, 100);
-			Platform.tempo = 1;
+			updateMenuState();
 		}
-		if(e.getKeyCode() == KeyEvent.VK_ENTER && currentState == 2) {
-			System.exit(0);
-		}
-
 	}
 
 	@Override
@@ -241,12 +239,24 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 			p1.right = false;
 		}
 	}
+
+	public void playSound() {
+		sound = JApplet.newAudioClip(getClass().getResource(song));
+		sound.play();
+	}
+
+	public void playGameOver() {
+		sound = JApplet.newAudioClip(getClass().getResource(gameover));
+		sound.play();
+	}
 	
-	public void playSound(String fileName) {
-		if(sound == null) {
-		sound = JApplet.newAudioClip(getClass().getResource(fileName));
-			sound.play();
-		}
+	public void playIntro() {
+		sound = JApplet.newAudioClip(getClass().getResource(intro));
+		sound.play();
+	}
+	
+	public void stopIntro() {
+		sound.stop();
 	}
 
 	void FinalGamePanel() {
@@ -268,7 +278,11 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 	}
 
 	void updateMenuState() {
-
+		score = 0;
+		Player.x = 20;
+		Player p1 = new Player(Player.x, y, 100, 100);
+		Platform.tempo = 1;
+		playIntro();
 	}
 
 	void updateGameState() {
@@ -276,6 +290,7 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 	}
 
 	void updateEndState() {
+		currentState = 2;
 		Platform.resetPlatforms(platform1, platform2, platform3, platform4);
 		Platform.tempo = 0;
 		Player.xVelocity = 0;
@@ -293,7 +308,7 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 		g.drawString("Press ENTER to play", 870, 400);
 	}
 
-	void drawGameState(Graphics g){
+	void drawGameState(Graphics g) {
 		g.drawImage(FinalGamePanel.backgroundImg, 0, 0, 1950, 600, null);
 		g.setColor(Color.BLUE);
 		g.fillRect(0, 525, 350, 75);
@@ -311,9 +326,9 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 		 * for (Lava l : lavas) { l.drawLava(g); }
 		 */
 		// if(Level2FinalGame.score != Platform.lastScore && score % 5 == 0) {
-		
+
 		g.drawImage(FinalGamePanel.lavaImg, 350, 550, 1250, 50, null);
-		if (score % 5 == 0 && score != 0 || score == 10) {
+		if (score % 5 == 0 && score != 0 && score <= 10) {
 			for (PowerUp p : powerups) {
 				PowerUp.drawPowerUp(g);
 			}
@@ -325,24 +340,25 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 			System.out.println(newLavaIncrease);
 			g.drawImage(FinalGamePanel.lavaImg, 350, Level2FinalGame.lavaY, 1250, 50 + newLavaIncrease, null);
 			if (p1.getCBox().intersects(lavaNew.getCBox())) {
-				currentState = 2;
+				updateEndState();
+				playGameOver();
 			}
 			if (p1.getCBox().intersects(powerup.getCBox())) {
-				playSound(song);
+				playSound();
 				PowerUp.deleteCBOX();
 				powerups.remove(powerup);
 				Platform.resetPlatforms(platform1, platform2, platform3, platform4);
-				while(Player.x > 1820)
-				Platform.tempo = 1;
-				}
 			}
-			
 		}
-	
-	
+		if (p1.getCBox().intersects(lava.getCBox())) {
+			playGameOver();
+			updateEndState();
+			System.out.println("Game Over!");
+		}
+
+	}
+
 	void drawEndState(Graphics g) {
-		updateEndState();
-		playSound(gameover);
 		g.setColor(Color.RED);
 		g.fillRect(0, 0, 1950, 600);
 		g.setFont(endFont);
@@ -354,20 +370,20 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 		g.drawString("Press ESC to exit the game", 800, 550);
 
 	}
-	
+
 	public static void startTimer(Graphics g) {
 		try {
 			for (int i = 0; i <= 10; i++) {
-				//System.out.println(i);
+				// System.out.println(i);
 				Thread.sleep(1000);
 				String time = Integer.toString(i);
-				//g.drawString(time, 200, 200);
+				// g.drawString(time, 200, 200);
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
 	}
-	
+
 	public void paintComponent(Graphics g) {
 		// TODO Auto-generated method stub
 		repaint();
@@ -458,4 +474,3 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
  * 
  * public int getYVelocity(){ return yVelocity; } }
  */
-
