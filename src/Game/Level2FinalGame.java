@@ -1,5 +1,4 @@
 package Game;
-//HERE ARE SOME CHANGES!!!
 
 import java.applet.AudioClip;
 import java.awt.Color;
@@ -49,8 +48,8 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 	int rand2 = r.nextInt(500 - 400) + 400;
 	int rand3 = r.nextInt(500 - 400) + 400;
 	int rand4 = r.nextInt(500 - 400) + 400;
-	static int randX = r.nextInt(1820 - 0) + 0;
-	static int randY = r.nextInt(275 - 0) + 0;
+	static int randX = r.nextInt(1500 - 200) + 200;
+	static int randY = r.nextInt(275 - 100) + 100;
 	static Platform platform1 = new Platform(1400, y1, 200, 50, 1);
 	static Platform platform2 = new Platform(1050, y2, 200, 50, 0.750);
 	static Platform platform3 = new Platform(700, y3, 200, 50, 0.5);
@@ -70,6 +69,7 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 	Font titleFont;
 	Font instructionsFont;
 	Font endFont;
+	Font signatureFont;
 	public static BufferedImage faceImg;
 	public static BufferedImage lavaImg;
 	public static BufferedImage backgroundImg;
@@ -113,6 +113,7 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 		titleFont = new Font("Helvetica Neue", Font.PLAIN, 96);
 		instructionsFont = new Font("Helvetica Neue", Font.PLAIN, 48);
 		endFont = new Font("Helvetica Neue", Font.PLAIN, 96);
+		signatureFont = new Font("Helvetica Neue", Font.PLAIN, 24);
 		// platforms.add(new Platform(200, 600, 200, 50));
 		// platforms.add(new Platform(200, 500, 200, 50));
 		platforms.add(platform1);
@@ -311,6 +312,8 @@ public class Level2FinalGame extends JPanel implements ActionListener, KeyListen
 		g.setFont(instructionsFont);
 		g.drawString("Press ENTER to play", 870, 400);
 		g.drawString("Press I for instructions", 870, 500);
+		g.setFont(signatureFont);
+		g.drawString("Created by Adi Gudi", 30, 580);
 	}
 
 	void drawGameState(Graphics g) {
